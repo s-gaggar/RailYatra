@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RailYatra - Indian Railways Station Explorer</title>
+    <meta name="description" content="A student project for exploring railway stations in India." />
+    <meta name="theme-color" content="#0b2447" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header" id="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="brand" href="#home" aria-label="RailYatra home">
+                <span class="brand__mark" aria-hidden="true">RY</span>
+                <span class="brand__name">Rail<span>Yatra</span></span>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+                <span class="nav-toggle__bars" aria-hidden="true"></span>
+                <span class="visually-hidden">Toggle menu</span>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#search">Search</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="container hero__inner">
+                <p class="eyebrow">Student project &bull; Indian Railways &bull; Work in progress</p>
+
+                <h1 id="hero-title">
+                    Find railway stations across <span class="highlight">India.</span>
+                </h1>
+
+                <p class="hero__lead">
+                    RailYatra is a project I'm building to learn web development.
+                    I want it to help people find railway stations, see them on a map,
+                    and check some basic details. There's still a lot left to do.
+                </p>
+
+                <div id="search">
+                    <form class="search" id="station-search-form" role="search" novalidate>
+                        <label class="search__label" for="station-search-input">
+                            Search for a station
+                        </label>
+
+                        <div class="search__row">
+                            <input class="search__input" id="station-search-input" name="station" type="search"
+                                placeholder="Enter a station name or code" autocomplete="off"
+                                aria-describedby="search-hint search-message" />
+                            <button class="btn btn--primary" type="submit">Search</button>
+                        </div>
+
+                        <p class="search__hint" id="search-hint">
+                            Search isn't working yet because I haven't added the station data.
+                        </p>
+
+                        <p class="search__message" id="search-message" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="hero__track" aria-hidden="true"></div>
+        </section>
+
+        <section class="section" id="dashboard" aria-labelledby="dashboard-title">
+            <div class="container">
+                <div class="section__head">
+                    <h2 id="dashboard-title">Railway facts</h2>
+                    <p>
+                        I'd like to show some numbers here once I find and add a suitable
+                        railway dataset. For now, these are just placeholders.
+                    </p>
+                </div>
+
+                <div class="cards">
+                    <article class="card stat-card" data-stat="stations">
+                        <span class="badge">Coming later</span>
+                        <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
+                        <h3 class="stat-card__label">Railway stations</h3>
+                        <p class="stat-card__note">The number of stations in the dataset.</p>
+                    </article>
+
+                    <article class="card stat-card" data-stat="states">
+                        <span class="badge">Coming later</span>
+                        <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
+                        <h3 class="stat-card__label">States and Union Territories</h3>
+                        <p class="stat-card__note">The places covered by the data.</p>
+                    </article>
+
+                    <article class="card stat-card" data-stat="zones">
+                        <span class="badge">Coming later</span>
+                        <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
+                        <h3 class="stat-card__label">Railway zones</h3>
+                        <p class="stat-card__note">Details about railway zones.</p>
+                    </article>
+
+                    <article class="card stat-card" data-stat="dataset">
+                        <span class="badge">Coming later</span>
+                        <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
+                        <h3 class="stat-card__label">Data sources</h3>
+                        <p class="stat-card__note">The datasets used for this project.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--alt" id="about" aria-labelledby="about-title">
+            <div class="container about">
+                <div class="about__text">
+                    <h2 id="about-title">About RailYatra</h2>
+                    <p>
+                        I wanted to make a simple website where people can look up railway
+                        stations in India. 
+                    </p>
+
+                    <p>
+                        I'm working on it one step at a time and saving my progress
+                        through Git commits. Hopefully, it will turn into something useful.
+                    </p>
+                </div>
+
+                <div class="about__planned">
+                    <h3>Things I'd like to add</h3>
+                    <ul class="checklist">
+                        <li><span class="tag">Planned</span> a searchable list of stations</li>
+                        <li><span class="tag">Planned</span> a map using Leaflet and OpenStreetMap</li>
+                        <li><span class="tag">Planned</span> filters for states and railway zones</li>
+                        <li><span class="tag">Planned</span> some charts and railway statistics</li>
+                    </ul>
+
+                    <p class="note">
+                        These features aren't ready yet. This site doesn't show live train positions.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer__inner">
+            <div>
+                <p class="footer__title">RailYatra</p>
+                <p>A small student project about Indian Railways.</p>
+            </div>
+
+            <div>
+                <p>
+                    I'll add links to the data sources and credit OpenStreetMap
+                    contributors when I start using them.
+                </p>
+
+                <p>
+                    &copy; <span id="footer-year">2026</span> RailYatra.
+                    Not affiliated with Indian Railways.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
