@@ -1,0 +1,25 @@
+/* Colours used across the site. */
+:root {
+    --navy: #0b2447;
+    --blue: #19376d;
+    --sky: #576cbc;
+    --amber: #f2a900;
+    --paper: #f5f7fb;
+    --ink: #1b2430;
+    --white: #ffffff;
+}
+
+/* Make height and width padding */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--ink);
+    background-color: var(--paper);
+}
