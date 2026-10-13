@@ -9,7 +9,7 @@
     --white: #ffffff;
 }
 
-/* Make height and width padding */
+/* Include padding and borders in an element's width and height.  */
 *,
 *::before,
 *::after {
@@ -26,7 +26,7 @@ body {
 
 /* Keeps page content from stretching across very wide screens. */
 .container {
-    width: min(100% -2rem, 1100px);
+    width: min(100% - 2rem, 1100px);
     margin-inline: auto;
 }
 
@@ -38,7 +38,7 @@ body {
     margin: -1px;
     padding: 0;
     overflow: hidden;
-    clip: reject(0, 0, 0, 0);
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
 }
@@ -59,4 +59,71 @@ body {
 
 .skip-link:focus {
     top: 0;
+}
+
+/* Header and navigation */
+.site-header {
+    background-color: var(--navy);
+    color: var(--white);
+    border-bottom: 4px solid var(--amber);
+}
+
+.navbar {
+    width: min(100% - 2rem, 1100px);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.brand__mark {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: var(--amber);
+    color: var(--navy);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.brand__name span {
+    color: var(--amber);
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-menu a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus-visible {
+    border-bottom-color: var(--amber);
+}
+
+/* The menu is only needed on small screens, so hiding it for now.*/
+.nav-toggle {
+    display: none;
 }
