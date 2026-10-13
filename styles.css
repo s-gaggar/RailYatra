@@ -23,3 +23,40 @@ body {
     color: var(--ink);
     background-color: var(--paper);
 }
+
+/* Keeps page content from stretching across very wide screens. */
+.container {
+    width: min(100% -2rem, 1100px);
+    margin-inline: auto;
+}
+
+/*Hides text visually but keeps it available to screen readers. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: reject(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Lets keyboard users jump past the menu. It only appears when focused. */
+.skip-link {
+    position: absolute;
+    top: -3rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--amber);
+    color: var(--navy);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 0 0 6px 6px;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
