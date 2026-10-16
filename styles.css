@@ -127,3 +127,70 @@ body {
 .nav-toggle {
     display: none;
 }
+
+/* Small screens: show the menu button and stack the links */
+@media (max-width: 700px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0;
+        background: transparent;
+        border: 2px solid var(--sky);
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .nav-toggle:focus-visible {
+        outline: 3px solid var(--amber);
+        outline-offset: 2px;
+    }
+
+    /* The three bars: one real span plus two pseudo-elements above and below it */
+    .nav-toggle__bars,
+    .nav-toggle__bars::before,
+    .nav-toggle__bars::after {
+        display: block;
+        width: 1.35rem;
+        height: 2px;
+        background-color: var(--white);
+    }
+
+    .nav-toggle__bars {
+        position: relative;
+    }
+
+    .nav-toggle__bars::before,
+    .nav-toggle__bars::after {
+        content: "";
+        position: absolute;
+        left: 0;
+    }
+
+    .nav-toggle__bars::before {
+        top: -6px;
+    }
+
+    .nav-toggle__bars::after {
+        top: 6px;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        flex-basis: 100%;
+        gap: 0;
+        padding-top: 0.5rem;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--blue);
+    }
+}
