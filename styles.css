@@ -197,4 +197,50 @@ body {
 
     .nav-menu.is-open {
         display: flex;
+    }
+}
+
+/* Hero section */
+.hero {
+    background-color: var(--blue);
+    color: var(--white);
+    padding-top: 3rem;
+}
+
+.hero__inner {
+    padding-bottom: 3rem;
+}
+
+.eyebrow {
+    margin: 0 0 1rem;
+    color: var(--amber);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    margin: 0 0 1rem;
+    max-width: 14ch;
+    font-size: clamp(2.2rem, 7vw, 3.75rem);
+    line-height: 1.1;
+}
+
+.highlight {
+    color: var(--amber);
+}
+
+.hero__lead {
+    max-width: 38rem;
+    margin: 0 0 2rem;
+    font-size: 1.1rem;
+    color: #d5deef;
+}
+
+/* A strip along the bottom of the hero that looks a bit like a railway track */
+.hero__track {
+    height: 12px;
+    background-color: var(--navy);
+    border-top: 4px dashed var(--amber);
 }
