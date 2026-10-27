@@ -17,7 +17,7 @@ navToggle.addEventListener("click", function () {
 
 //Close the menu after link is chosen, so it doesn't cover the page.
 navMenu.addEventListener("click", function (event) {
-    if (event.target.tagName === "A') {
+    if (event.target.tagName === "A") {
         setMenuOpen(false);
     }
 });

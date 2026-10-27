@@ -181,13 +181,6 @@ body {
         top: 6px;
     }
 
-    .nav-menu {
-        flex-direction: column;
-        flex-basis: 100%;
-        gap: 0;
-        padding-top: 0.5rem;
-    }
-
     .nav-menu a {
         display: block;
         padding: 0.75rem 0;
