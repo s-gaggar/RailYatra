@@ -244,3 +244,73 @@ body {
     background-color: var(--navy);
     border-top: 4px dashed var(--amber);
 }
+
+/* Search form */
+.search {
+    max-width: 38rem;
+}
+
+.search__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.search__row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search__input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.8rem 1rem;
+    font: inherit;
+    color: var(--ink);
+    background-color: var(--white);
+    border: 2px solid transparent;
+    border-radius: 6px;
+}
+
+.search__input:focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 2px;
+}
+
+.search__hint {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    color: #d5deef;
+}
+
+/* Reserve space so the page doesn't jump when a message appears */
+.search__message {
+    margin: 0.5rem 0 0;
+    min-height: 1.5rem;
+    font-weight: 700;
+    color: var(--amber);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.5rem;
+    font: inherit;
+    font-weight: 700;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn--primary {
+    background-color: var(--amber);
+    color: var(--navy);
+}
+
+.btn--primary:hover {
+    background-color: #ffc333;
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--white);
+    outline-offset: 2px;
+}
