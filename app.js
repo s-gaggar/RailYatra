@@ -21,3 +21,14 @@ navMenu.addEventListener("click", function (event) {
         setMenuOpen(false);
     }
 });
+
+// Show the current year in the footer, so it never goes out of date.
+document.getElementById("footer-year").textContent = new Date().getFullYear();
+
+// Pressing Escape closes the mobile menu and puts focus back on the button.
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && navToggle.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        navToggle.focus();
+    }
+});
