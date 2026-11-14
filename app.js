@@ -36,7 +36,47 @@ document.addEventListener("keydown", function (event) {
 // Station data. It starts empty and is filled in once the file has loaded.
 let stations = [];
 
+const searchMessage = document.getElementById("search-message");
+
+function showMessage(text) {
+    searchMessage.textContent = text;
+}
+
+// Some state names in the dataset are old or missing, so tidy them up.
+function cleanState(state) {
+    if (!state) {
+        return "";
+    }
+    if (state === "Orissa") {
+        return "Odisha";
+    }
+    return state.trim();
+}
+
+// Turn one raw GeoJSON feature into a simple station object.
+// GeoJSON stores coordinates as [longitude, latitude].
+function makeStation(feature) {
+    const props = feature.properties;
+    const coords = feature.geometry ? feature.geometry.coordinates : null;
+
+    return {
+        name: (props.name || "").trim(),
+        code: (props.code || "").trim(),
+        state: cleanState(props.state),
+        zone: props.zone && props.zone !== "?" ? props.zone : "",
+        lat: coords ? coords[1] : null,
+        lng: coords ? coords[0] : null
+    };
+}
+
+// Leave out the station with no name and the two that are in Bangladesh.
+function isUsable(station) {
+    return station.name !== "" && station.state !== "Bangladesh";
+}
+
 async function loadStations() {
+    showMessage("Loading stations...");
+
     try {
         const response = await fetch("data/stations.json");
 
@@ -45,10 +85,13 @@ async function loadStations() {
         }
 
         const geojson = await response.json();
-        stations = geojson.features;
-        console.log("Stations loaded: ", stations.length);
+        stations = geojson.features.map(makeStation).filter(isUsable);
+
+        showMessage("");
+        console.log("Stations ready:", stations.length);
     } catch (error) {
         console.error("Station data failed to load:", error);
+        showMessage("Sorry, the station data could not be loaded. Please try refreshing the page.");
     }
 }
 
