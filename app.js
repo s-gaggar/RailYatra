@@ -32,3 +32,24 @@ document.addEventListener("keydown", function (event) {
         navToggle.focus();
     }
 });
+
+// Station data. It starts empty and is filled in once the file has loaded.
+let stations = [];
+
+async function loadStations() {
+    try {
+        const response = await fetch("data/stations.json");
+
+        if (!response.ok) {
+            throw new Error("The file could not be loaded (status " + response.status + ")");
+        }
+
+        const geojson = await response.json();
+        stations = geojson.features;
+        console.log("Stations loaded: ", stations.length);
+    } catch (error) {
+        console.error("Station data failed to load:", error);
+    }
+}
+
+loadStations();
