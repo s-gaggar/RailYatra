@@ -466,3 +466,18 @@ body {
         scroll-behavior: smooth;
     }
 }
+
+/* Links in the footer */
+.site-footer a {
+    color: var(--white);
+    text-underline-offset: 3px;
+}
+
+.site-footer a:hover {
+    color: var(--amber);
+}
+
+.site-footer a:focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 2px;
+}
