@@ -481,3 +481,40 @@ body {
     outline: 3px solid var(--amber);
     outline-offset: 2px;
 }
+
+/* Station list */
+.station-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.station-card {
+    border-left: 4px solid var(--amber);
+}
+
+.station-card__name {
+    margin: 0 0 0.25rem;
+    color: var(--navy);
+    font-size: 1.1rem;
+}
+
+.station-card__code {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    background-color: #e3e9f7;
+    color: var(--blue);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.station-card__meta {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #4a5568;
+}

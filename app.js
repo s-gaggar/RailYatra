@@ -74,6 +74,46 @@ function isUsable(station) {
     return station.name !== "" && station.state !== "Bangladesh";
 }
 
+const stationList = document.getElementById("station-list");
+const resultsSummary = document.getElementById("results-summary");
+
+// Build one card for one station. Missing details are said plainly, not guessed.
+function createStationCard(station) {
+    const item = document.createElement("li");
+    item.className = "card station-card";
+
+    const name = document.createElement("h3");
+    name.className = "station-card__name";
+    name.textContent = station.name;
+
+    const code = document.createElement("span");
+    code.className = "station-card__code";
+    code.textContent = station.code;
+
+    const meta = document.createElement("p");
+    meta.className = "station-card__meta";
+    const stateText = station.state || "State not recorded";
+    const zoneText = station.zone ? "Zone " + station.zone : "Zone not recorded";
+    meta.textContent = stateText + " | " + zoneText;
+
+    item.appendChild(name);
+    item.appendChild(code);
+    item.appendChild(meta);
+    return item;
+}
+
+    // Show the first 20 stations from a list.
+    function renderStations(list) {
+        stationList.innerHTML = ""; // Clear any old cards first
+
+        list.slice(0, 20).forEach(function (station) {
+            stationList.appendChild(createStationCard(station));
+        });
+
+        resultsSummary.textContent = 
+        "Showing the first 20 of " + list.length.toLocaleString("en-IN") + " stations.";
+    }
+
 async function loadStations() {
     showMessage("Loading stations...");
 
@@ -88,10 +128,12 @@ async function loadStations() {
         stations = geojson.features.map(makeStation).filter(isUsable);
 
         showMessage("");
+        renderStations(stations);
         console.log("Stations ready:", stations.length);
     } catch (error) {
         console.error("Station data failed to load:", error);
         showMessage("Sorry, the station data could not be loaded. Please try refreshing the page.");
+        resultsSummary.textContent = "No stations to show because the data could not be loaded.";
     }
 }
 
