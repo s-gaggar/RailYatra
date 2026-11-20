@@ -102,17 +102,37 @@ function createStationCard(station) {
     return item;
 }
 
-    // Show the first 20 stations from a list.
-    function renderStations(list) {
-        stationList.innerHTML = ""; // Clear any old cards first
-
-        list.slice(0, 20).forEach(function (station) {
-            stationList.appendChild(createStationCard(station));
-        });
-
-        resultsSummary.textContent = 
-        "Showing the first 20 of " + list.length.toLocaleString("en-IN") + " stations.";
+    // Describe how many stations are being shown.
+    function describeResults(count) {
+        if (count === 0) {
+            return "No stations found. Try a different name or code.";
+        }
+        if (count <= 20) {
+            return "Showing " + count + (count === 1 ? " station." : " stations.");
+        }
+        return "Showing the first 20 of " + count.toLocaleString("en-IN") + " stations.";
     }
+
+    // Find stations whose name or code contains the search text.
+    function searchStations(query) {
+        const text = query.trim().toLowerCase();
+
+        return stations.filter(function (station) {
+            return station.name.toLowerCase().includes(text) ||
+            station.code.toLowerCase().includes(text);
+        });
+    }
+
+        // Show the first 20 stations from a list.
+        function renderStations(list) {
+            stationList.innerHTML = ""; // Clear any old cards first
+
+            list.slice(0, 20).forEach(function (station) {
+                stationList.appendChild(createStationCard(station));
+            });
+
+            resultsSummary.textContent = describeResults(list.length);
+        }
 
 async function loadStations() {
     showMessage("Loading stations...");
@@ -138,3 +158,27 @@ async function loadStations() {
 }
 
 loadStations();
+
+// Search form: run the search when the form is submitted.
+const searchForm = document.getElementById("station-search-form");
+const searchInput = document.getElementById("station-search-input");
+
+searchForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Stop the browser from reloading the page
+
+    if (stations.length === 0) {
+        showMessage("The station data isn't available yet.");
+        return;
+    }
+
+    const results = searchStations(searchInput.value);
+    renderStations(results);
+
+    if (results.length === 0) {
+        showMessage("No stations match \"" + searchInput.value.trim() + "\".");
+    } else {
+        showMessage("");
+    }
+
+    document.getElementById("results").scrollIntoView();
+});
