@@ -265,3 +265,25 @@ resetButton.addEventListener("click", function () {
     updateResults();
     searchInput.focus();
 });
+
+// The map. It stays null if the Leaflet library could not be loaded.
+const mapNote = document.getElementById("map-note");
+let map = null;
+
+function setUpMap() {
+    if (typeof L === "undefined") {
+        mapNote.textContent = "The map could not be loaded. Check your internet connection and refresh the page.";
+        return;
+    }
+
+    // Scroll-wheel zoom is off so the page can still be scrolled past the map.
+    map = L.map("station-map", { scrollWheelZoom: false });
+    map.fitBounds([[6.5, 68], [35.5, 97.5]]); // roughly the area of India
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+}
+
+setUpMap();

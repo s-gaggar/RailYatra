@@ -8,7 +8,9 @@
     <meta name="description" content="A student project for exploring railway stations in India." />
     <meta name="theme-color" content="#0b2447" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
     <script src="app.js" defer></script>
 </head>
 
@@ -30,6 +32,7 @@
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#search">Search</a></li>
+                <li><a href="#map">Map</a></li>
                 <li><a href="#dashboard">Dashboard</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
@@ -109,6 +112,17 @@
                 <button class="btn btn--primary show-more" id="show-more-button" type="button" hidden>
                     Show more stations
                 </button>
+            </div>
+        </section>
+
+        <section class="section" id="map" aria-labelledby="map-title">
+            <div class="container">
+                <div class="section__head">
+                    <h2 id="map-title">Map</h2>
+                    <p id="map-note">A map of India. Station markers will be added next.</p>
+                </div>
+
+                <div class="map" id="station-map" aria-label="Map of Indian railway stations"></div>
             </div>
         </section>
 
@@ -206,6 +220,8 @@
                     Station data from
                     <a href="https://github.com/datameet/railways">DataMeet's Indian Railways data</a>,
                     released under CC0.
+                    Map data from
+                    <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.
                 </p>
 
                 <p>

@@ -593,3 +593,17 @@ body {
 .btn--secondary:focus-visible {
     outline-color: var(--navy);
 }
+
+/* Map */
+.map {
+    height: 28rem;
+    border: 1px solid #dde3ef;
+    border-radius: 8px;
+    isolation: isolate; /* keeps the map's layers from overlapping other parts of the page */
+}
+
+@media (max-width: 700px) {
+    .map {
+        height: 22rem;
+    }
+}
