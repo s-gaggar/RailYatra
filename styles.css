@@ -518,3 +518,14 @@ body {
     font-size: 0.9rem;
     color: #4a5568;
 }
+
+/* The "Show more" button */
+.show-more {
+    display: block;
+    margin: 1.5rem auto 0;
+}
+
+/* display: block would overrid the hidden attribute, so hiding it explicitly */
+.show-more[hidden] {
+    display: none;
+}
