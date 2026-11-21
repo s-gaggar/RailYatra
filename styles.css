@@ -529,3 +529,45 @@ body {
 .show-more[hidden] {
     display: none;
 }
+
+/* Filters */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.filter label {
+    color: var(--navy);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.filter select {
+    min-width: 12rem;
+    max-width: 100%;
+    padding: 0.6rem 0.75rem;
+    font: inherit;
+    color: var(--ink);
+    background-color: var(--white);
+    border: 2px solid #c9d3e6;
+    border-radius: 6px;
+}
+
+.filter select:focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 2px;
+}
+
+.filters__note {
+    margin: 0 0 1.5rem;
+    font-size: 0.85rem;
+    color: #4a5568;
+}

@@ -110,7 +110,7 @@ const showMoreButton = document.getElementById("show-more-button");
 // Describe how many stations are being shown.
 function describeResults(shown, total) {
     if (total === 0) {
-        return "No stations found. Try a different name or code.";
+        return "No stations found. Try a different search or filter.";
     }
     if (shown >= total) {
         return total === 1
@@ -130,6 +130,37 @@ function searchStations(query) {
             station.code.toLowerCase().includes(text);
     });
 }
+
+const stateFilter = document.getElementById("state-filter");
+
+// Fill the state dropdown with the states that appear in the data.
+function fillStateFilter() {
+    const states = [];
+
+    stations.forEach(function (station) {
+        if (station.state !== "" && !states.includes(station.state)) {
+            states.push(station.state);
+        }
+    });
+
+    states.sort();
+
+    states.forEach(function (state) {
+        const option = document.createElement("option");
+        option.value = state;
+        option.textContent = state;
+        stateFilter.appendChild(option);
+    });
+}
+
+// The stations that match the search text and the chosen filters.
+function getMatchingStations() {
+    const selectedState = stateFilter.value;
+
+        return searchStations(searchInput.value).filter(function (station) {
+            return selectedState === "" || station.state === selectedState;
+        });
+    }
 
 // Start a new list of results, beginning again from the first page.
 function showResults(list) {
@@ -164,6 +195,7 @@ async function loadStations() {
         stations = geojson.features.map(makeStation).filter(isUsable);
 
         showMessage("");
+        fillStateFilter();
         showResults(stations);
         console.log("Stations ready:", stations.length);
     } catch (error) {
@@ -187,11 +219,11 @@ searchForm.addEventListener("submit", function (event) {
         return;
     }
 
-    const results = searchStations(searchInput.value);
+    const results = getMatchingStations();
     showResults(results);
 
     if (results.length === 0) {
-        showMessage("No stations match \"" + searchInput.value.trim() + "\".");
+        showMessage("No stations match your search and filters.");
     } else {
         showMessage("");
     }
@@ -210,6 +242,15 @@ searchInput.addEventListener("input", function () {
     if (stations.length === 0) {
         return;
     }
-    showMessage(" ");
-    showResults(searchStations(searchInput.value));
+    showMessage("");
+    showResults(getMatchingStations());
+});
+
+// Changing the state shows the matching stations straight away.
+stateFilter.addEventListener("change", function () {
+    if (stations.length === 0) {
+        return;
+    }
+    showMessage("");
+    showResults(getMatchingStations());
 });

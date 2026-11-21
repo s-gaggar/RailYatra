@@ -79,13 +79,24 @@
 
         <section class="section" id="results" aria-labelledby="results-title">
             <div class="container">
-                <div class=""section__head">
+                <div class="section__head">
                     <h2 id="results-title">Stations</h2>
                     <p id="results-summary">Loading stations...</p>    
                 </div>
 
+                <div class="filters">
+                    <div class="filter">
+                        <label for="state-filter">State</label>
+                        <select id="state-filter">
+                            <option value="">All states</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="filters__note">
+                    Stations with no state recorded only appear under "ALL states".
+                </p>
                 <ul class="station-list" id="station-list"></ul>
-                <button class="btn btn--primary show more" id="show-more-button" type="button" hidden>
+                <button class="btn btn--primary show-more" id="show-more-button" type="button" hidden>
                     Show more stations
                 </button>
             </div>
