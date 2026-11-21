@@ -534,6 +534,7 @@ body {
 .filters {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-end;
     gap: 1rem;
     margin-bottom: 0.75rem;
 }
@@ -570,4 +571,25 @@ body {
     margin: 0 0 1.5rem;
     font-size: 0.85rem;
     color: #4a5568;
+}
+
+/* A quieter button for secondary actions such as Reset */
+.btn--secondary {
+    background-color: transparent;
+    color: var(--navy);
+    border-color: var(--navy);
+}
+
+.btn--secondary:hover {
+    background-color: #e3e9f7;
+}
+
+.filters .btn {
+    padding: 0.55rem 1.25rem;
+}
+
+/* On the light background, a navy outline is easier to see than white */
+.show-more:focus-visible,
+.btn--secondary:focus-visible {
+    outline-color: var(--navy);
 }

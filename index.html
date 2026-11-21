@@ -91,9 +91,19 @@
                             <option value="">All states</option>
                         </select>
                     </div>
+
+                    <div class="filter">
+                        <label for="zone-filter">Railway zone</label>
+                        <select id="zone-filter">
+                            <option value="">All zones</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn--secondary" id="reset-filters" type="button">Reset</button>
                 </div>
                 <p class="filters__note">
-                    Stations with no state recorded only appear under "ALL states".
+                    Stations with no state or zone recorded only appear under "All states" and
+                    "All zones". Zones are shown by their short codes, such as NR.
                 </p>
                 <ul class="station-list" id="station-list"></ul>
                 <button class="btn btn--primary show-more" id="show-more-button" type="button" hidden>

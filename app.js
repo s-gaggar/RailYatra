@@ -132,33 +132,38 @@ function searchStations(query) {
 }
 
 const stateFilter = document.getElementById("state-filter");
+const zoneFilter = document.getElementById("zone-filter");
 
-// Fill the state dropdown with the states that appear in the data.
-function fillStateFilter() {
-    const states = [];
+// Fill a dropdown with different values found in the data, in alphabetical order.
+function fillFilter(select, field) {
+    const values = [];
 
     stations.forEach(function (station) {
-        if (station.state !== "" && !states.includes(station.state)) {
-            states.push(station.state);
+        const value = station[field];
+        if (value !== "" && !values.includes(value)) {
+            values.push(value);
         }
     });
 
-    states.sort();
+    values.sort();
 
-    states.forEach(function (state) {
+    values.forEach(function (value) {
         const option = document.createElement("option");
-        option.value = state;
-        option.textContent = state;
-        stateFilter.appendChild(option);
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
     });
 }
 
 // The stations that match the search text and the chosen filters.
 function getMatchingStations() {
     const selectedState = stateFilter.value;
+    const selectedZone = zoneFilter.value;
 
         return searchStations(searchInput.value).filter(function (station) {
-            return selectedState === "" || station.state === selectedState;
+            const stateMatches = selectedState === "" || station.state === selectedState;
+            const zoneMatches = selectedZone === "" || station.zone === selectedZone;
+            return stateMatches && zoneMatches;
         });
     }
 
@@ -195,7 +200,8 @@ async function loadStations() {
         stations = geojson.features.map(makeStation).filter(isUsable);
 
         showMessage("");
-        fillStateFilter();
+        fillFilter(stateFilter, "state");
+        fillFilter(zoneFilter, "zone");
         showResults(stations);
         console.log("Stations ready:", stations.length);
     } catch (error) {
@@ -210,6 +216,7 @@ loadStations();
 // Search form: run the search when the form is submitted.
 const searchForm = document.getElementById("station-search-form");
 const searchInput = document.getElementById("station-search-input");
+const resetButton = document.getElementById("reset-filters");
 
 searchForm.addEventListener("submit", function (event) {
     event.preventDefault(); // Stop the browser from reloading the page
@@ -237,20 +244,24 @@ showMoreButton.addEventListener("click", function () {
     renderStations();
 });
 
-// Update the results while the visitor types.
-searchInput.addEventListener("input", function () {
+// Run the search again whenever a text or a filter changes.
+function updateResults() {
     if (stations.length === 0) {
         return;
     }
     showMessage("");
     showResults(getMatchingStations());
-});
+}
 
-// Changing the state shows the matching stations straight away.
-stateFilter.addEventListener("change", function () {
-    if (stations.length === 0) {
-        return;
-    }
-    showMessage("");
-    showResults(getMatchingStations());
+searchInput.addEventListener("input", updateResults);
+stateFilter.addEventListener("change", updateResults);
+zoneFilter.addEventListener("change", updateResults);
+
+// Reset clears the search box and both filters.
+resetButton.addEventListener("click", function () {
+    searchInput.value = "";
+    stateFilter.value = "";
+    zoneFilter.value = "";
+    updateResults();
+    searchInput.focus();
 });
