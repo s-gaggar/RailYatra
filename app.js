@@ -333,7 +333,12 @@ function updateResults() {
     showResults(getMatchingStations());
 }
 
-searchInput.addEventListener("input", updateResults);
+// Wait until the visitor pauses typing, so the map isn't redrawn on every key press.
+let typingTimer = null;
+searchInput.addEventListener("input", function () {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(updateResults, 250);
+});
 stateFilter.addEventListener("change", updateResults);
 zoneFilter.addEventListener("change", updateResults);
 
