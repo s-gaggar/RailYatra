@@ -607,3 +607,29 @@ body {
         height: 22rem;
     }
 }
+
+/* Charts */
+.charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.chart-box {
+    margin: 0;
+    padding: 1.25rem;
+    background-color: var(--white);
+    border: 1px solid #dde3ef;
+    border-radius: 8px;
+}
+
+.chart-box figcaption {
+    margin-bottom: 0.75rem;
+    color: var(--navy);
+    font-weight: 700;
+}
+
+.chart-wrap {
+    position: relative;
+    height: 22rem;
+}

@@ -214,6 +214,44 @@ function setStat(name, value) {
     }
 }
 
+// Count how many stations have each value of a field, biggest first.
+function countBy(field) {
+    const counts = {};
+    stations.forEach(function (station) {
+        const value = station[field];
+        if (value !== "") {
+            counts[value] = (counts[value] || 0) + 1;
+        }
+    });
+    return Object.entries(counts).sort(function (a, b) {
+        return b[1] - a[1];
+    });
+}
+
+// Draw a horizontal bar chart. If Chart.js did not load, say so.
+function drawBarChart(canvasId, entries, label) {
+    if (typeof Chart === "undefined") {
+        document.getElementById("chart-note").textContent = "The charts could not be loaded. Check your internet connection and refresh the page.";
+        return;
+    }
+    new Chart(document.getElementById(canvasId), {
+        type: "bar",
+        data: {
+            labels: entries.map(function (entry) { return entry[0]; }),
+            datasets: [{
+                label: label,
+                data: entries.map(function (entry) { return entry[1]; }),
+                backgroundColor: "#19376d"
+            }]
+            },
+            options: {
+                indexAxis: "y",
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+            
 // Work out the dashboard numbers from the station data.
 function showDashboard() {
     const states = new Set(stations.map(function (s) { return s.state; }).filter(Boolean));
@@ -224,6 +262,8 @@ function showDashboard() {
     setStat("states", states.size);
     setStat("zones", zones.size);
     setStat("mapped", mapped.length);
+    drawBarChart("zone-chart", countBy("zone"), "Stations");
+    drawBarChart("state-chart", countBy("state").slice(0, 10), "Stations");
 }
 
 async function loadStations() {

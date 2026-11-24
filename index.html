@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
     <script src="app.js" defer></script>
 </head>
 
@@ -42,7 +43,7 @@
     <main id="main">
         <section class="hero" id="home" aria-labelledby="hero-title">
             <div class="container hero__inner">
-                <p class="eyebrow">Student project &bull; Indian Railways &bull</p>
+                <p class="eyebrow">Student project &bull; Indian Railways</p>
 
                 <h1 id="hero-title">
                     Find railway stations across <span class="highlight">India.</span>
@@ -132,7 +133,7 @@
                     <h2 id="dashboard-title">What's in the data?</h2>
                     <p>
                         These numbers are worked out from the station dataset. Stations with no state or
-                        zone recorded are left out, so they aren't ccounted in the states and zones.
+                        zone recorded are left out, so they aren't counted in the states and zones.
                     </p>
                 </div>
 
@@ -141,7 +142,7 @@
                         <span class="badge">Coming later</span>
                         <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
                         <h3 class="stat-card__label">Railway stations</h3>
-                        <p class="stat-card__note">States in the data</p>
+                        <p class="stat-card__note">After removing plaeholder entries</p>
                     </article>
 
                     <article class="card stat-card" data-stat="states">
@@ -164,6 +165,30 @@
                         <h3 class="stat-card__label">Stations on the map</h3>
                         <p class="stat-card__note">The rest have no coordinates in the data.</p>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="charts" aria-labelledby="charts-title">
+            <div class="container">
+                <div class="section__head">
+                    <h2 id="charts-title">Charts</h2>
+                    <p id="chart-note">Only stations with a state or zone recorded are counted here.</p>
+                </div>
+
+                <div class="charts">
+                    <figure class="chart-box">
+                        <figcaption>Stations per railway zone</figcaption>
+                        <div class="chart-wrap">
+                            <canvas id="zone-chart" role="img" aria-label="Bar chart of the number of stations in each railway zone"></canvas>
+                        </div>
+                    </figure>
+
+                    <figure class="chart-box">
+                        <figcaption>States with the most stations</figcaption>
+                        <div class="chart-wrap">
+                            <canvas id="state-chart" role="img" aria-label="Bar chart of the ten states with the most stations"></canvas>                        </div>
+                    </figure>
                 </div>
             </div>
         </section>
