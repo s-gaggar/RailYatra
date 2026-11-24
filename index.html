@@ -42,16 +42,16 @@
     <main id="main">
         <section class="hero" id="home" aria-labelledby="hero-title">
             <div class="container hero__inner">
-                <p class="eyebrow">Student project &bull; Indian Railways &bull; Work in progress</p>
+                <p class="eyebrow">Student project &bull; Indian Railways &bull</p>
 
                 <h1 id="hero-title">
                     Find railway stations across <span class="highlight">India.</span>
                 </h1>
 
                 <p class="hero__lead">
-                    RailYatra is a project I'm building to learn web development.
-                    I want it to help people find railway stations, see them on a map,
-                    and check some basic details. There's still a lot left to do.
+                    RailYatra is a station finder I made while learning web development.
+                    You can search for a station by name or code, filter by state or zone,
+                    and see where it is on the map.
                 </p>
 
                 <div id="search">
@@ -129,10 +129,10 @@
         <section class="section" id="dashboard" aria-labelledby="dashboard-title">
             <div class="container">
                 <div class="section__head">
-                    <h2 id="dashboard-title">Railway facts</h2>
+                    <h2 id="dashboard-title">What's in the data?</h2>
                     <p>
                         These numbers are worked out from the station dataset. Stations with no state or
-                        zone recorded are left out of the state and zone counts.
+                        zone recorded are left out, so they aren't ccounted in the states and zones.
                     </p>
                 </div>
 
@@ -141,28 +141,28 @@
                         <span class="badge">Coming later</span>
                         <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
                         <h3 class="stat-card__label">Railway stations</h3>
-                        <p class="stat-card__note">The number of stations in the dataset.</p>
+                        <p class="stat-card__note">States in the data</p>
                     </article>
 
                     <article class="card stat-card" data-stat="states">
                         <span class="badge">Coming later</span>
                         <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
                         <h3 class="stat-card__label">States and Union Territories</h3>
-                        <p class="stat-card__note">The places covered by the data.</p>
+                        <p class="stat-card__note">Only counts stations that list a state.</p>
                     </article>
 
                     <article class="card stat-card" data-stat="zones">
                         <span class="badge">Coming later</span>
                         <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
                         <h3 class="stat-card__label">Railway zones</h3>
-                        <p class="stat-card__note">Details about railway zones.</p>
+                        <p class="stat-card__note">Only counts stations that list a zone.</p>
                     </article>
 
                     <article class="card stat-card" data-stat="mapped">
                         <span class="badge">Coming later</span>
                         <p class="stat-card__value" aria-label="No data yet">&mdash;</p>
                         <h3 class="stat-card__label">Stations on the map</h3>
-                        <p class="stat-card__note">Stations with a recorded location.</p>
+                        <p class="stat-card__note">The rest have no coordinates in the data.</p>
                     </article>
                 </div>
             </div>
@@ -178,8 +178,7 @@
                     </p>
 
                     <p>
-                        I'm working on it one step at a time and saving my progress
-                        through Git commits. Hopefully, it will turn into something useful.
+                        I built it one step at a time, and finally published it on Vercel.
                     </p>
 
                     <h3>About the data</h3>
@@ -192,16 +191,16 @@
                 </div>
 
                 <div class="about__planned">
-                    <h3>Things I'd like to add</h3>
+                    <h3>What you can do here</h3>
                     <ul class="checklist">
-                        <li><span class="tag">Planned</span> a searchable list of stations</li>
-                        <li><span class="tag">Planned</span> a map using Leaflet and OpenStreetMap</li>
-                        <li><span class="tag">Planned</span> filters for states and railway zones</li>
-                        <li><span class="tag">Planned</span> some charts and railway statistics</li>
+                        <li>Search stations by name or code</li>
+                        <li>See stations with a known location on a map</li>
+                        <li>Filter the list by state and railway zone</li>
+                        <li>Check basic numbers about the dataset</li>
                     </ul>
 
                     <p class="note">
-                        These features aren't ready yet. This site doesn't show live train positions.
+                        This site doesn't show live train positions.
                     </p>
                 </div>
             </div>
