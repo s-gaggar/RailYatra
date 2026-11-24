@@ -77,6 +77,13 @@ function isUsable(station) {
 const stationList = document.getElementById("station-list");
 const resultsSummary = document.getElementById("results-summary");
 
+// A short line about a station's state and zone, used on cards and map popups.
+function describeStation(station) {
+    const stateText = station.state || "State not recorded";
+    const zoneText = station.zone ? "Zone " + station.zone : "Zone not recorded";
+    return stateText + " | " + zoneText;
+}
+
 // Build one card for one station. Missing details are said plainly, not guessed.
 function createStationCard(station) {
     const item = document.createElement("li");
@@ -92,9 +99,7 @@ function createStationCard(station) {
 
     const meta = document.createElement("p");
     meta.className = "station-card__meta";
-    const stateText = station.state || "State not recorded";
-    const zoneText = station.zone ? "Zone " + station.zone : "Zone not recorded";
-    meta.textContent = stateText + " | " + zoneText;
+    meta.textContent = describeStation(station);
 
     item.appendChild(name);
     item.appendChild(code);
@@ -172,6 +177,7 @@ function showResults(list) {
     currentResults = list;
     visibleCount = PAGE_SIZE;
     renderStations();
+    showStationsOnMap(list);
 }
 
 // Draw the cards for the stations that are currently visible.
@@ -269,6 +275,7 @@ resetButton.addEventListener("click", function () {
 // The map. It stays null if the Leaflet library could not be loaded.
 const mapNote = document.getElementById("map-note");
 let map = null;
+let markerLayer = null;
 
 function setUpMap() {
     if (typeof L === "undefined") {
@@ -277,13 +284,69 @@ function setUpMap() {
     }
 
     // Scroll-wheel zoom is off so the page can still be scrolled past the map.
-    map = L.map("station-map", { scrollWheelZoom: false });
+    map = L.map("station-map", { scrollWheelZoom: false, preferCanvas: true });
     map.fitBounds([[6.5, 68], [35.5, 97.5]]); // roughly the area of India
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    markerLayer = L.featureGroup().addTo(map);
+}
+
+// The popup that creates when a marker is clicked.
+function createPopup(station) {
+    const box = document.createElement("div");
+
+    const title = document.createElement("strong");
+    title.textContent = station.name + " (" + station.code +")";
+
+    const details = document.createElement("div");
+    details.textContent = describeStation(station);
+
+    box.appendChild(title);
+    box.appendChild(details);
+    return box;
+}
+
+// Replaces the markers on the map with the given stations.
+function showStationsOnMap(list) {
+    if (!map) {
+        return;
+    }
+
+    markerLayer.clearLayers();
+    let shown = 0;
+
+    list.forEach(function (station) {
+        if (station.lat === null) {
+            return; // no recorded station, so it can't go on the map
+        }
+
+        const marker = L.circleMarker([station.lat, station.lng], {
+            radius: 5,
+            color: "#0b2447",
+            weight: 1,
+            fillColor: "#f2a900",
+            fillOpacity: 0.85
+        });
+
+        // The popup is only built when someone clicks the marker.
+        marker.bindPopup(function () {
+            return createPopup(station);
+        });
+
+        marker.addTo(markerLayer);
+        shown++;
+    });
+
+    if (shown > 0) {
+        map.fitBounds(markerLayer.getBounds(), { padding: [20, 20], maxZoom: 10 });
+    }
+
+mapNote.textContent = "Showing " + shown.toLocaleString("en-IN") + " of " +
+ list.length.toLocaleString("en-IN") + " stations on the map. " + 
+ "Stations with no recorded location are left out.";
 }
 
 setUpMap();
