@@ -1,6 +1,3 @@
-// Temporary check that the script is connected. I'll remove this later.
-console.log("RailYatra: app.js loaded");
-
 // Mobile menu: the button shows and hides the navigation links.
 const navToggle = document.getElementById("nav-toggle");
 const navMenu = document.getElementById("nav-menu");
@@ -53,6 +50,17 @@ function cleanState(state) {
     return state.trim();
 }
 
+// Many names are in capital (BARAUT) while others are not (Moga), so make them look consistent.
+function tidyName(name) {
+    const trimmed = (name || "").trim();
+    if (trimmed !== trimmed.toUpperCase()) {
+        return trimmed; // already mixed case, so let it be as it is
+    }
+    return trimmed.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
+    });
+}
+
 // Turn one raw GeoJSON feature into a simple station object.
 // GeoJSON stores coordinates as [longitude, latitude].
 function makeStation(feature) {
@@ -60,7 +68,7 @@ function makeStation(feature) {
     const coords = feature.geometry ? feature.geometry.coordinates : null;
 
     return {
-        name: (props.name || "").trim(),
+        name: tidyName(props.name),
         code: (props.code || "").trim(),
         state: cleanState(props.state),
         zone: props.zone && props.zone !== "?" ? props.zone : "",
@@ -71,7 +79,9 @@ function makeStation(feature) {
 
 // Leave out the station with no name and the two that are in Bangladesh.
 function isUsable(station) {
-    return station.name !== "" && station.state !== "Bangladesh";
+    // Entries whose name is just their code and that have no location are placeholders.
+    const isPlaceholder = station.name.toLowerCase() === station.code.toLowerCase() && station.lat === null;
+    return station.name !== "" && station.state !== "Bangladesh" && !isPlaceholder;
 }
 
 const stationList = document.getElementById("station-list");
@@ -192,6 +202,30 @@ function renderStations() {
     showMoreButton.hidden = visibleCount >= currentResults.length;
 }
 
+// Put one number into one dashboard card.
+function setStat(name, value) {
+    const card = document.querySelector('[data-stat="' + name + '"]');
+    const valueElement = card.querySelector(".stat-card__value");
+    valueElement.textContent = value.toLocaleString("en-IN");
+    valueElement.removeAttribute("aria-label");
+    const badge = card.querySelector(".badge");
+    if (badge) {
+        badge.remove();
+    }
+}
+
+// Work out the dashboard numbers from the station data.
+function showDashboard() {
+    const states = new Set(stations.map(function (s) { return s.state; }).filter(Boolean));
+    const zones = new Set(stations.map(function (s) { return s.zone; }).filter(Boolean));
+    const mapped = stations.filter(function (s) { return s.lat !== null; });
+
+    setStat("stations", stations.length);
+    setStat("states", states.size);
+    setStat("zones", zones.size);
+    setStat("mapped", mapped.length);
+}
+
 async function loadStations() {
     showMessage("Loading stations...");
 
@@ -209,7 +243,7 @@ async function loadStations() {
         fillFilter(stateFilter, "state");
         fillFilter(zoneFilter, "zone");
         showResults(stations);
-        console.log("Stations ready:", stations.length);
+        showDashboard();
     } catch (error) {
         console.error("Station data failed to load:", error);
         showMessage("Sorry, the station data could not be loaded. Please try refreshing the page.");
